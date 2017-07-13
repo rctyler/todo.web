@@ -19,16 +19,11 @@ import thunk from 'redux-thunk';
 import fetchComponentData from '../common/utils/fetchComponentData';
 
 import { createRepository } from '../common/utils/repository';
-import authStrategy from './strategies/auth';
 import numberStrategy from './strategies/numbers';
 
 import cookieParser from 'cookie-parser';
 
-import { authMiddleware } from './auth';
-console.log(authMiddleware);
-
 createRepository({
-	auth: authStrategy,
 	numbers: numberStrategy
 });
 
@@ -36,11 +31,6 @@ const app = express();
 
 app.use(cookieParser());
 app.use(bodyParser.json());
-
-app.use(authMiddleware({
-	allowAnon: ['/api/login', '/', '/assets.*', '/dist.*'],
-	requireCsrfToken: ['/api/.*']
-}));
 
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
@@ -52,18 +42,6 @@ app.use('/api', api);
 app.use((req, res, next) => {
 
 	let initialState = {};
-
-	if (req.user) {
-		console.log('logged in already');
-
-		initialState.auth = {
-			isLoggingIn: false,
-			isLoggingOut: false,
-			isAuthenticated: true,
-			username: req.user.username,
-			avatarUri: req.user.avatarUri
-		};
-	}
 
 	const store = createStore(combinedReducers, initialState, applyMiddleware(thunk));
 

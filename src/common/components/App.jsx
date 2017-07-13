@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import Login from './auth/login';
 
 export default class TodoApp extends Component {
 
@@ -11,7 +10,6 @@ export default class TodoApp extends Component {
 	render() {
 		return (
 			<div>
-				<Login />
 				<nav>
 					<ul>
 						<li><Link to="/" activeStyle={{ color: 'red' }}>Home</Link></li>
