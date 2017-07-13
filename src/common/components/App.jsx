@@ -14,7 +14,6 @@ export default class TodoApp extends Component {
 					<ul>
 						<li><Link to="/" activeStyle={{ color: 'red' }}>Home</Link></li>
 						<li><Link to="/numbers" activeStyle={{ color: 'red' }}>Number Manager</Link></li>
-						<li><Link to="/links" activeStyle={{ color: 'red' }}>Url Shortener</Link></li>
 					</ul>
 				</nav>
 				<section>
