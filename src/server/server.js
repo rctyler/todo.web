@@ -66,13 +66,13 @@ app.use((req, res, next) => {
 				</Provider>
 			));
 
-			// console.log('\ninitView:\n', initView);
+			console.log('\ninitView:\n', initView);
 
 			let state = JSON.stringify(store.getState());
-			// console.log( '\nstate: ', state )
+			console.log( '\nstate: ', state );
 
 			let page = renderFullPage(initView, state);
-			// console.log( '\npage:\n', page );
+			console.log( '\npage:\n', page );
 
 			return res.status(200).send(page);
 		} catch (err) {
@@ -83,18 +83,18 @@ app.use((req, res, next) => {
 
 function renderFullPage(html, initialState) {
 	return `
-	<!doctype html>
-	<html lang="utf-8">
-	  <head>
+<!doctype html>
+<html lang="utf-8">
+	<head>
 		<title>Universal Redux Example</title>
 		<link rel="shortcut icon" type="image/png" href="assets/images/react.png">
-	  </head>
-	  <body>
-	  <div id="app">${html}</div>
+	</head>
+	<body>
+		<div id="app">${html}</div>
 		<script>window.$REDUX_STATE = ${initialState}</script>
 		<script src="/dist/bundle.js"></script>
-	  </body>
-	</html>
+	</body>
+</html>
 	`;
 }
 

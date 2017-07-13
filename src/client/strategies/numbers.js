@@ -1,17 +1,5 @@
 import request from '../request';
 
-function getCsrfToken() {
-	return getCookie('csrf_token');
-}
-
-function getCookie(name) {
-	var value = '; ' + document.cookie;
-	var parts = value.split('; ' + name + '=');
-	if (parts.length == 2) {
-		return parts.pop().split(';').shift();
-	}
-}
-
 function saveNumber({ number }) {
 	return new Promise((resolve, reject) => {
 		request
@@ -41,8 +29,25 @@ function loadNumber() {
 	});
 }
 
+function addTodo({ todo }) {
+	return new Promise((resolve, reject) => {
+		request
+			.post('/api/todo')
+			.send(todo)
+			.end((err, res) => {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(res.body.number);
+				}
+			});
+	});
+}
+
 export default function (name, values) {
 	switch (name) {
+		case 'addTodo':
+			return addTodo(values);
 		case 'save':
 			return saveNumber(values);
 		case 'load':
