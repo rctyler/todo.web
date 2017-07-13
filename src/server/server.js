@@ -16,8 +16,6 @@ import combinedReducers from '../common/reducers';
 
 import thunk from 'redux-thunk';
 
-import fetchComponentData from '../common/utils/fetchComponentData';
-
 import { createRepository } from '../common/utils/repository';
 import numberStrategy from './strategies/numbers';
 
@@ -61,40 +59,25 @@ app.use((req, res, next) => {
 			return res.status(404).send('Not found');
 		}
 
-		// console.log( '\nserver > renderProps: \n', require('util').inspect( renderProps, false, 1, true) )
-		// console.log( '\nserver > renderProps: \n', require('util').inspect( renderProps.components, false, 3, true) )
+		try {
+			const initView = renderToString((
+				<Provider store={store}>
+					<RouterContext {...renderProps} />
+				</Provider>
+			));
 
-		// this is where universal rendering happens,
-		// fetchComponentData() will trigger actions listed in static "needs" props in each container component
-		// and wait for all of them to complete before continuing rendering the page,
-		// hence ensuring all data needed was fetched before proceeding
-		//
-		// renderProps: contains all necessary data, e.g: routes, router, history, components...
-		fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
+			// console.log('\ninitView:\n', initView);
 
-			.then(() => {
+			let state = JSON.stringify(store.getState());
+			// console.log( '\nstate: ', state )
 
-				const initView = renderToString((
-					<Provider store={store}>
-						<RouterContext {...renderProps} />
-					</Provider>
-				));
+			let page = renderFullPage(initView, state);
+			// console.log( '\npage:\n', page );
 
-				// console.log('\ninitView:\n', initView);
-
-				let state = JSON.stringify(store.getState());
-				// console.log( '\nstate: ', state )
-
-				let page = renderFullPage(initView, state);
-				// console.log( '\npage:\n', page );
-
-				return page;
-
-			})
-
-			.then(page => res.status(200).send(page))
-
-			.catch(err => res.end(err.message));
+			return res.status(200).send(page);
+		} catch (err) {
+			res.end(err.message);
+		}
 	});
 });
 
