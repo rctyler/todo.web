@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { setTodoMessage, setWhen, setAuthor, addTodo, increment, decrement, loadNumber, saveNumber } from '../actions/numberActions';
+import { setTodoMessage, setWhen, setAuthor, addTodo }
+	from '../actions/numberActions';
 
 class Todo extends Component {
 
@@ -8,11 +9,11 @@ class Todo extends Component {
 		store: React.PropTypes.object.isRequired,
 	};
 
-	handleTodoChange(event) {
+	handleTodoMessageChange(event) {
 		return event => this.props.setTodoMessage(event.target.value);
 	}
 
-	handleWhenChange(event) {
+	handleTodoWhenChange(event) {
 		return event => this.props.setWhen(event.target.value);
 	}
 
@@ -26,25 +27,19 @@ class Todo extends Component {
 				<h1>TODO Manager</h1>
 				 <form onSubmit={() => this.props.addTodo()}>
 					<div>
-						TODO: <input type="text" value={this.props.todo} onChange={this.handleTodoChange}/>
+						TODO: <input type="text" value={this.props.todo} onChange={this.handleTodoMessageChange}/>
 					</div>
 					<div>
-						When: <input type="text" value={this.props.when} onChange={this.handleWhenChange}/>
+						When: <input type="text" value={this.props.when} onChange={this.handleTodoWhenChange}/>
 					</div>
 					<div>
-						Author: <input type="text" value={this.props.author} onChange={this.handleAuthorChange}/>
+						Author: <input type="text" value={this.props.author} onChange={this.handleTodoAuthorChange}/>
 					</div>
 					<div>
 						<input type="submit" value="Add"/>
 					</div>
 				</form>
-				<h1>Number Manager</h1>
-				<span>the number is {this.props.number}</span>
-				<button onClick={() => this.props.increment()}>increment</button>
-				<button onClick={() => this.props.decrement()}>decrement</button>
-				<button onClick={() => this.props.saveNumber(this.props.number)}>save</button>
-				<button onClick={() => this.props.loadNumber()}>load saved</button>
-				<span>{this.props.message}</span>
+				<span>{this.props.loadingMessage}</span>
 			</div>
 		);
 
@@ -57,8 +52,7 @@ function mapStateToProps({ numberReducer }, ownProps) {
 		todoMessage: numberReducer.todoMessage,
 		when: numberReducer.when,
 		author: numberReducer.author,
-		number: numberReducer.number,
-		message: numberReducer.message
+		loadingMessage: numberReducer.loadingMessage
 	};
 }
 
@@ -75,18 +69,6 @@ function mapDispatchToProps(dispatch, ownProps) {
 		},
 		addTodo: () => {
 			dispatch(addTodo());
-		},
-		increment: () => {
-			dispatch(increment());
-		},
-		decrement: () => {
-			dispatch(decrement());
-		},
-		loadNumber: () => {
-			dispatch(loadNumber());
-		},
-		saveNumber: number => {
-			dispatch(saveNumber(number));
 		}
 	};
 }
