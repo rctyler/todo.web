@@ -19,15 +19,12 @@ import thunk from 'redux-thunk';
 import { createRepository } from '../common/utils/repository';
 import numberStrategy from './strategies/numbers';
 
-import cookieParser from 'cookie-parser';
-
 createRepository({
 	numbers: numberStrategy
 });
 
 const app = express();
 
-app.use(cookieParser());
 app.use(bodyParser.json());
 
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
@@ -86,7 +83,7 @@ function renderFullPage(html, initialState) {
 <!doctype html>
 <html lang="utf-8">
 	<head>
-		<title>Universal Redux Example</title>
+		<title>TODO Web Application</title>
 		<link rel="shortcut icon" type="image/png" href="assets/images/react.png">
 	</head>
 	<body>
@@ -100,7 +97,7 @@ function renderFullPage(html, initialState) {
 
 // example of handling 404 pages
 app.get('*', function (req, res) {
-	res.status(404).send('Server.js > 404 - Page Not Found');
+	res.status(404).send('404 - Page Not Found');
 });
 
 // global error catcher, need four arguments

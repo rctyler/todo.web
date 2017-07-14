@@ -9,7 +9,7 @@ export default class ShortLink extends Component {
 	render() {
 		let nodes = (
 			<div>
-				<h1>Welcome to the NERRd stack</h1>
+				<h1>Welcome to the TODO Manager Web Application</h1>
 				To learn more, read the docs.
 			</div>
 		);
