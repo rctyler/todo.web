@@ -12,8 +12,8 @@ export default class App extends Component {
 			<div>
 				<nav>
 					<ul>
-						<li><Link to="/" activeStyle={{ color: 'red' }}>Home</Link></li>
-						<li><Link to="/todo" activeStyle={{ color: 'red' }}>Todo</Link></li>
+						<li><Link to="/">Home</Link></li>
+						<li><Link to="/todo">Todo</Link></li>
 					</ul>
 				</nav>
 				<section>
