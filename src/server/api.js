@@ -11,7 +11,7 @@ app.post('/todo', (req, res) => {
 	};
 
 	getRepository()
-		.numbers('addTodo', { todo })
+		.todos('addTodo', { todo })
 		.then(value => {
 			res.status(200).send(value);
 		})

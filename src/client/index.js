@@ -8,10 +8,10 @@ import routes from '../common/routes/routing';
 import thunk from 'redux-thunk';
 
 import { createRepository } from '../common/utils/repository';
-import numberStrategy from './strategies/numbers';
+import todoStrategy from './strategies/todos';
 
 createRepository({
-	numbers: numberStrategy
+	todos: todoStrategy
 });
 
 let state = null;

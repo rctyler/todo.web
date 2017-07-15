@@ -32,7 +32,7 @@ export function addTodo(message, when, author) {
 	return dispatch => {
 		dispatch(setLoadingMessage('adding ...'));
 		getRepository()
-			.numbers('addTodo', { todo })
+			.todos('addTodo', { todo })
 			.then(todo => {
 				dispatch(setLoadingMessage());
 				dispatch(addToLog(`Added todo item ${todo.id}\n`));

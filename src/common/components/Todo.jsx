@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { setMessage, setWhen, setAuthor, addTodo }
-	from '../actions/numberActions';
+	from '../actions/todoActions';
 
 class Todo extends Component {
 
@@ -47,13 +47,13 @@ class Todo extends Component {
 	}
 }
 
-function mapStateToProps({ numberReducer }, ownProps) {
+function mapStateToProps({ todoReducer }, ownProps) {
 	return {
-		message: numberReducer.message,
-		when: numberReducer.when,
-		author: numberReducer.author,
-		loadingMessage: numberReducer.loadingMessage,
-		log: numberReducer.log
+		message: todoReducer.message,
+		when: todoReducer.when,
+		author: todoReducer.author,
+		loadingMessage: todoReducer.loadingMessage,
+		log: todoReducer.log
 	};
 }
 
