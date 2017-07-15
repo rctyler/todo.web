@@ -31,51 +31,54 @@ app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
 import api from './api';
+
 app.use('/api', api);
 
 // server rendering
 app.use((req, res, next) => {
 
-	let initialState = {};
+	if (!res.headersSent) {
 
-	const store = createStore(combinedReducers, initialState, applyMiddleware(thunk));
+		let initialState = {};
+		const store = createStore(combinedReducers, initialState, applyMiddleware(thunk));
 
-	// react-router
-	match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
+		// react-router
+		match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
 
-		if (error) {
-			return res.status(500).send(error.message);
-		}
+			if (error) {
+				return res.status(500).send(error.message);
+			}
 
-		if (redirectLocation) {
-			return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-		}
+			if (redirectLocation) {
+				return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+			}
 
-		if (renderProps == null) {
-			// return next('err msg: route not found'); // yield control to next middleware to handle the request
-			return res.status(404).send('Not found');
-		}
+			if (renderProps == null) {
+				// return next('err msg: route not found'); // yield control to next middleware to handle the request
+				return res.status(404).send('Not found');
+			}
 
-		try {
-			const initView = renderToString((
-				<Provider store={store}>
-					<RouterContext {...renderProps} />
-				</Provider>
-			));
+			try {
+				const initView = renderToString((
+					<Provider store={store}>
+						<RouterContext {...renderProps} />
+					</Provider>
+				));
 
-			console.log('\ninitView:\n', initView);
+				console.log('\ninitView:\n', initView);
 
-			let state = JSON.stringify(store.getState());
-			console.log( '\nstate: ', state );
+				let state = JSON.stringify(store.getState());
+				console.log( '\nstate: ', state );
 
-			let page = renderFullPage(initView, state);
-			console.log( '\npage:\n', page );
+				let page = renderFullPage(initView, state);
+				console.log( '\npage:\n', page );
 
-			return res.status(200).send(page);
-		} catch (err) {
-			res.end(err.message);
-		}
-	});
+				return res.status(200).send(page);
+			} catch (err) {
+				res.end(err.message);
+			}
+		});
+	}
 });
 
 function renderFullPage(html, initialState) {

@@ -1,10 +1,9 @@
 import actionTypes from '../constants/actionTypes';
-
 import { getRepository } from '../utils/repository';
 
-export function setTodoMessage(message) {
+export function setMessage(message) {
 	return {
-		type: actionTypes.SET_TODO_MESSAGE,
+		type: actionTypes.SET_MESSAGE,
 		payload: { message }
 	};
 }
@@ -23,23 +22,28 @@ export function setAuthor(author) {
 	};
 }
 
-export function addTodo() {
-	const todo = {};
+export function addTodo(message, when, author) {
+	const todo = {
+		TODO: message,
+		when,
+		author
+	};
+
 	return dispatch => {
 		dispatch(setLoadingMessage('adding ...'));
 		getRepository()
 			.numbers('addTodo', { todo })
-			.then(value => {
-				//dispatch(setLoadingMessage());
-				dispatch(setTodo(value));
+			.then(todo => {
+				dispatch(setLoadingMessage());
+				dispatch(addToLog(`Added todo item ${todo.id}\n`));
 			});
 	};
 }
 
-export function setTodo(todo) {
+export function addToLog(log) {
 	return {
-		type: actionTypes.SET_TODO,
-		payload: { todo }
+		type: actionTypes.ADD_TO_LOG,
+		payload: { log }
 	};
 }
 

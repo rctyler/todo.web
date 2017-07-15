@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { setTodoMessage, setWhen, setAuthor, addTodo }
+import { setMessage, setWhen, setAuthor, addTodo }
 	from '../actions/numberActions';
 
 class Todo extends Component {
@@ -9,37 +9,49 @@ class Todo extends Component {
 		store: React.PropTypes.object.isRequired,
 	};
 
-	handleTodoMessageChange(event) {
-		return event => this.props.setTodoMessage(event.target.value);
+	handleMessageChange(event) {
+		this.props.setTodoMessage(event.target.value);
 	}
 
-	handleTodoWhenChange(event) {
-		return event => this.props.setWhen(event.target.value);
+	handleWhenChange(event) {
+		this.props.setWhen(event.target.value);
 	}
 
 	handleAuthorChange(event) {
-		return event => this.props.setAuthor(event.target.value);
+		this.props.setAuthor(event.target.value);
+	}
+
+	handleSubmit(event) {
+		event.preventDefault();
+		this.props.addTodo(this.props.message, this.props.when, this.props.author);
 	}
 
 	render() {
 		let nodes = (
 			<div>
 				<h1>TODO Manager</h1>
-				 <form onSubmit={() => this.props.addTodo()}>
+				 <form onSubmit={e => this.handleSubmit(e)}>
 					<div>
-						TODO: <input type="text" value={this.props.todo} onChange={this.handleTodoMessageChange}/>
+						TODO:
+						<input type="text" onChange={e => this.props.setTodoMessage(e.target.value)}/>
 					</div>
 					<div>
-						When: <input type="text" value={this.props.when} onChange={this.handleTodoWhenChange}/>
+						When:
+						<input type="text" onChange={e => this.props.setWhen(e.target.value)}/>
 					</div>
 					<div>
-						Author: <input type="text" value={this.props.author} onChange={this.handleTodoAuthorChange}/>
+						Author:
+						<input type="text" onChange={e => this.props.setAuthor(e.target.value)}/>
 					</div>
 					<div>
 						<input type="submit" value="Add"/>
+						<span>{this.props.loadingMessage}</span>
 					</div>
 				</form>
-				<span>{this.props.loadingMessage}</span>
+				<div>
+					<h3>Log of events:</h3>
+					<textarea readOnly value={this.props.log}/>
+				</div>
 			</div>
 		);
 
@@ -49,17 +61,18 @@ class Todo extends Component {
 
 function mapStateToProps({ numberReducer }, ownProps) {
 	return {
-		todoMessage: numberReducer.todoMessage,
+		message: numberReducer.message,
 		when: numberReducer.when,
 		author: numberReducer.author,
-		loadingMessage: numberReducer.loadingMessage
+		loadingMessage: numberReducer.loadingMessage,
+		log: numberReducer.log
 	};
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
 	return {
 		setTodoMessage: message => {
-			dispatch(setTodoMessage(message));
+			dispatch(setMessage(message));
 		},
 		setWhen: when => {
 			dispatch(setWhen(when));
@@ -67,8 +80,8 @@ function mapDispatchToProps(dispatch, ownProps) {
 		setAuthor: author => {
 			dispatch(setAuthor(author));
 		},
-		addTodo: () => {
-			dispatch(addTodo());
+		addTodo: (message, when, author) => {
+			dispatch(addTodo(message, when, author));
 		}
 	};
 }

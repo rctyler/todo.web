@@ -6,10 +6,17 @@ function addTodo({ todo }) {
 			.post('/api/todo')
 			.send(todo)
 			.end((err, res) => {
+				const todo = {
+					id: res.body.id,
+					TODO: res.body.TODO,
+					when: res.body.when,
+					author: res.body.author
+				};
+
 				if (err) {
 					reject(err);
 				} else {
-					resolve(res.body.number);
+					resolve(todo);
 				}
 			});
 	});
