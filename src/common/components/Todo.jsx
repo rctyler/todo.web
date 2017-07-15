@@ -9,18 +9,6 @@ class Todo extends Component {
 		store: React.PropTypes.object.isRequired,
 	};
 
-	handleMessageChange(event) {
-		this.props.setTodoMessage(event.target.value);
-	}
-
-	handleWhenChange(event) {
-		this.props.setWhen(event.target.value);
-	}
-
-	handleAuthorChange(event) {
-		this.props.setAuthor(event.target.value);
-	}
-
 	handleSubmit(event) {
 		event.preventDefault();
 		this.props.addTodo(this.props.message, this.props.when, this.props.author);
