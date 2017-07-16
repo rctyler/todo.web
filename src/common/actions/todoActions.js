@@ -22,6 +22,20 @@ export function setAuthor(author) {
 	};
 }
 
+export function setTodo(todo) {
+	return {
+		type: actionTypes.SET_TODO,
+		payload: { todo }
+	};
+}
+
+export function setFindTodoId(id) {
+	return {
+		type: actionTypes.SET_FIND_TODO_ID,
+		payload: { find: { id } }
+	};
+}
+
 export function addTodo(message, when, author) {
 	const todo = {
 		TODO: message,
@@ -51,5 +65,59 @@ export function setLoadingMessage(loadingMessage) {
 	return {
 		type: actionTypes.SET_LOADING_MESSAGE,
 		payload: { loadingMessage }
+	};
+}
+
+export function setShouldNotGetTodoOnMount(flag) {
+	return {
+		type: actionTypes.SET_SHOULD_NOT_GET_TODO_ON_MOUNT,
+		payload: { shouldNotGetTodoOnMount: flag }
+	};
+}
+
+export function getTodo(id) {
+	return dispatch => {
+		dispatch(setLoadingMessage('retrieving ...'));
+		getRepository()
+			.todos('getTodo', { get: { id } })
+			.then(todo => {
+				dispatch(setLoadingMessage());
+				dispatch(setTodo(todo));
+				dispatch(addToLog(`Found todo item ${todo.id}\n`));
+			})
+			.catch(err => {
+				dispatch(setLoadingMessage());
+				dispatch(setTodo(createEmptyTodo()));
+				dispatch(addToLog(`Could not find todo item ${id}\n`));
+			});
+	};
+}
+
+export function getTodoFromLink(id) {
+	return dispatch => {
+		dispatch(setLoadingMessage('retrieving ...'));
+		dispatch(setShouldNotGetTodoOnMount(true));
+		getRepository()
+			.todos('getTodo', { get: { id } })
+			.then(todo => {
+				dispatch(setLoadingMessage());
+				dispatch(setTodo(todo));
+				dispatch(addToLog(`Found todo item ${todo.id}\n`));
+				dispatch(setShouldNotGetTodoOnMount(false));
+			})
+			.catch(err => {
+				dispatch(setLoadingMessage());
+				dispatch(setTodo(createEmptyTodo()));
+				dispatch(addToLog(`Could not find todo item ${id}\n`));
+			});
+	};
+}
+
+function createEmptyTodo() {
+	return {
+		ID: '',
+		TODO: '',
+		when: '',
+		author: ''
 	};
 }

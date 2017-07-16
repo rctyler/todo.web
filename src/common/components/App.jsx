@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 
 export default class App extends Component {
 
@@ -13,7 +14,9 @@ export default class App extends Component {
 				<nav>
 					<ul>
 						<li><Link to="/">Home</Link></li>
-						<li><Link to="/todo">Todo</Link></li>
+						<li><Link to="/todo/add">Add</Link></li>
+						<li><Link to="/todo/get">Get</Link></li>
+						<li><Link to="/todo/delete">Delete</Link></li>
 					</ul>
 				</nav>
 				<section>
