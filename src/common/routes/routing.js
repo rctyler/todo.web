@@ -14,9 +14,8 @@ export default (
 		<Route path="/home" component={Home} />
 		<Route path="/(todo\/add|todo\/get|todo\/delete)/" component={TodoManager}>
 			<Route path="/todo/add" components={AddTodo} />
-			<Route path="/todo/get" components={GetTodo}>
-				<Route path="/todo/get/:id" components={Todo} />
-			</Route>
+			<Route path="/todo/get" components={GetTodo} />
+			<Route path="/todo/get/:id" components={GetTodo} />
 			<Route path="/todo/delete" components={DeleteTodo} />
 		</Route>
 	</Route>

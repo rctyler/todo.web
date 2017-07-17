@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { setFindTodoId, getTodoFromLink } from '../actions/todoActions';
+import Todo from './Todo';
+import { setFindTodoId, getTodo } from '../actions/todoActions';
 
 class GetTodo extends Component {
 
@@ -9,34 +10,45 @@ class GetTodo extends Component {
 		store: React.PropTypes.object.isRequired
 	};
 
-	handleClick(event) {
-		if (this.props.id) {
-			this.props.getTodoFromLink(this.props.id);
+	componentWillMount() {
+		if (this.props.params.id) {
+			this.props.getTodo(this.props.params.id);
 		}
 	}
 
 	handleChange(event) {
-		this.props.params.id = null;
-		this.props.setFindTodoId(event.target.value);
+		this.props.setId(event.target.value);
+	}
+
+	handleSubmit(event) {
+		event.preventDefault();
+		this.props.getTodo(this.props.id);
 	}
 
 	render() {
-		let id = this.props.params.id || this.props.id;
-		let url = this.props.id ? `/todo/get/${this.props.id}` : '/todo/get';
+		let form = (
+			<form onSubmit={e => this.handleSubmit(e)}>
+				<div>
+					id:
+					<input value={this.props.id} type="text" onChange={e => this.handleChange(e)}/>
+				</div>
+				<div>
+					<input type="submit" value="Get" disabled={!this.props.id}/>
+					<span>{this.props.loadingMessage}</span>
+				</div>
+				{this.props.todoId ? <br/> : null}
+			</form>
+		);
+
 		let nodes = (
 			<div>
 				<h1>Get TODO Item</h1>
-				<div>
-					id:
-					<input value={id} type="text" onChange={e => this.handleChange(e)}/>
-				</div>
-				<div>
-					<Link to={url} onClick={e => this.handleClick(e)}>Get</Link>
-					<span>{this.props.loadingMessage}</span>
-				</div>
-				<section>
-					{this.props.children}
-				</section>
+				{!this.props.params.id ? form : null}
+				{
+					this.props.todoId ? <Todo/>
+						: this.props.params.id ? <Todo/>
+						: null
+				}
 			</div>
 		);
 
@@ -46,17 +58,19 @@ class GetTodo extends Component {
 
 function mapStateToProps({ todoReducer }, ownProps) {
 	return {
-		id: todoReducer.findTodoId
+		id: todoReducer.findTodoId,
+		todoId: todoReducer.getTodoId,
+		loadingMessage: todoReducer.loadingMessage
 	};
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
 	return {
-		setFindTodoId: id => {
+		setId: id => {
 			dispatch(setFindTodoId(id));
 		},
-		getTodoFromLink: id => {
-			dispatch(getTodoFromLink(id));
+		getTodo: id => {
+			dispatch(getTodo(id));
 		}
 	};
 }

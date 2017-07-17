@@ -15,6 +15,7 @@ class AddTodo extends Component {
 	}
 
 	render() {
+		let disableSubmitButton = !this.props.message && !this.props.when && !this.props.author;
 		let nodes = (
 			<div>
 				<h1>Add New TODO Item</h1>
@@ -32,7 +33,7 @@ class AddTodo extends Component {
 						<input type="text" onChange={e => this.props.setAuthor(e.target.value)}/>
 					</div>
 					<div>
-						<input type="submit" value="Add"/>
+						<input type="submit" value="Add" disabled={disableSubmitButton} />
 						<span>{this.props.loadingMessage}</span>
 					</div>
 				</form>

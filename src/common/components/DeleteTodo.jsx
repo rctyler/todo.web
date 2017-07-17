@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { setMessage, setWhen, setAuthor, addTodo }
-	from '../actions/todoActions';
+import { deleteTodo, setDeleteTodoId } from '../actions/todoActions';
 
 class DeleteTodo extends Component {
 
@@ -9,15 +8,30 @@ class DeleteTodo extends Component {
 		store: React.PropTypes.object.isRequired,
 	};
 
+	componentWillUnmount() {
+		this.props.setId('');
+	}
+
 	handleSubmit(event) {
 		event.preventDefault();
-		this.props.addTodo(this.props.message, this.props.when, this.props.author);
+		this.props.deleteTodo(this.props.id);
 	}
 
 	render() {
+		let id = this.props.id || '';
 		let nodes = (
 			<div>
 				<h1>Delete TODO Item</h1>
+				<form onSubmit={e => this.handleSubmit(e)}>
+					<div>
+						id:
+						<input value={id} type="text" onChange={e => this.props.setId(e.target.value)}/>
+					</div>
+					<div>
+						<input type="submit" value="Delete" disabled={!this.props.id}/>
+						<span>{this.props.loadingMessage}</span>
+					</div>
+				</form>
 			</div>
 		);
 
@@ -27,11 +41,19 @@ class DeleteTodo extends Component {
 
 function mapStateToProps({ todoReducer }, ownProps) {
 	return {
+		id: todoReducer.deleteTodoId,
+		loadingMessage: todoReducer.loadingMessage
 	};
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
 	return {
+		setId: id => {
+			dispatch(setDeleteTodoId(id));
+		},
+		deleteTodo: id => {
+			dispatch(deleteTodo(id));
+		}
 	};
 }
 

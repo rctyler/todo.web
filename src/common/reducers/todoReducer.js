@@ -43,6 +43,14 @@ function setFindTodoId(state, action) {
 	return newState;
 }
 
+function setDeleteTodoId(state, action) {
+	let newState = { ...state };
+
+	newState.deleteTodoId = action.payload.delete.id;
+
+	return newState;
+}
+
 function setLoadingMessage(state, action) {
 	let newState = { ...state };
 
@@ -79,6 +87,8 @@ export default function (state = { log: '', findTodoId: '' }, action) {
 			return setTodo(state, action);
 		case actionTypes.SET_FIND_TODO_ID:
 			return setFindTodoId(state, action);
+		case actionTypes.SET_DELETE_TODO_ID:
+			return setDeleteTodoId(state, action);
 		case actionTypes.SET_LOADING_MESSAGE:
 			return setLoadingMessage(state, action);
 		case actionTypes.ADD_TO_LOG:

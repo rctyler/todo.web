@@ -15,21 +15,32 @@ app.post('/todo', (req, res) => {
 		.then(value => {
 			res.status(200).send(value);
 		})
-		.catch(reason => {
-			res.status(500).send({ reason });
+		.catch(err => {
+			res.status(500).send(err);
 		});
 });
 
 app.get('/todo/:id', (req, res) => {
 	const id = req.params.id;
-
 	getRepository()
 		.todos('getTodo', { get: { id } })
 		.then(value => {
 			res.status(200).send(value);
 		})
-		.catch(reason => {
-			res.status(500).send({ reason });
+		.catch(err => {
+			res.status(500).send(err);
+		});
+});
+
+app.delete('/todo/:id', (req, res) => {
+	const id = req.params.id;
+	getRepository()
+		.todos('deleteTodo', { del: { id } })
+		.then(() => {
+			res.sendStatus(201);
+		})
+		.catch(err => {
+			res.status(500).send(err);
 		});
 });
 

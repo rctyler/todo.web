@@ -36,6 +36,13 @@ export function setFindTodoId(id) {
 	};
 }
 
+export function setDeleteTodoId(id) {
+	return {
+		type: actionTypes.SET_DELETE_TODO_ID,
+		payload: { delete: { id } }
+	};
+}
+
 export function addTodo(message, when, author) {
 	const todo = {
 		TODO: message,
@@ -88,7 +95,23 @@ export function getTodo(id) {
 			.catch(err => {
 				dispatch(setLoadingMessage());
 				dispatch(setTodo(createEmptyTodo()));
-				dispatch(addToLog(`Could not find todo item ${id}\n`));
+				dispatch(addToLog(`Could not get todo item ${id}. Reason: ${err}\n`));
+			});
+	};
+}
+
+export function deleteTodo(id) {
+	return dispatch => {
+		dispatch(setLoadingMessage('deleting ...'));
+		getRepository()
+			.todos('deleteTodo', { del: { id } })
+			.then(() => {
+				dispatch(setLoadingMessage());
+				dispatch(addToLog(`Deleted todo item ${id}\n`));
+			})
+			.catch(err => {
+				dispatch(setLoadingMessage());
+				dispatch(addToLog(`Could not delete todo item ${id}. Reason: ${err}\n`));
 			});
 	};
 }
@@ -108,7 +131,7 @@ export function getTodoFromLink(id) {
 			.catch(err => {
 				dispatch(setLoadingMessage());
 				dispatch(setTodo(createEmptyTodo()));
-				dispatch(addToLog(`Could not find todo item ${id}\n`));
+				dispatch(addToLog(`Could not get todo item ${id}. Reason: ${err}\n`));
 			});
 	};
 }
