@@ -27,7 +27,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
+app.use('/assets', express.static(path.join(__dirname, '../../src/client/assets')));
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
 import api from './api';
@@ -87,7 +87,7 @@ function renderFullPage(html, initialState) {
 <html lang="utf-8">
 	<head>
 		<title>TODO Web Application</title>
-		<link rel="shortcut icon" type="image/png" href="assets/images/react.png">
+		<link rel="stylesheet" type="text/css" href="assets/styles/todo.css">
 	</head>
 	<body>
 		<div id="app">${html}</div>
