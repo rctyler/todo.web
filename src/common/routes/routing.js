@@ -7,6 +7,7 @@ import AddTodo from '../components/AddTodo';
 import GetTodo from '../components/GetTodo';
 import DeleteTodo from '../components/DeleteTodo';
 import TodoManager from '../components/TodoManager';
+import About from '../components/About';
 
 export default (
 	<Route path="/" component={App}>
@@ -18,5 +19,6 @@ export default (
 			<Route path="/todo/get/:id" components={GetTodo} />
 			<Route path="/todo/delete" components={DeleteTodo} />
 		</Route>
+		<Route path="/about" component={About} />
 	</Route>
 );

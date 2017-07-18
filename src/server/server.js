@@ -28,6 +28,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use('/assets', express.static(path.join(__dirname, '../../src/client/assets')));
+//app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
 import api from './api';

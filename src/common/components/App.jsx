@@ -9,17 +9,27 @@ export default class App extends Component {
 	};
 
 	render() {
+
+		const homeClass = this.props.location.pathname === '/' ? 'active' : '';
+		const addClass = this.props.location.pathname.match(/^\/todo\/add/) ? 'active' : '';
+		const getClass = this.props.location.pathname.match(/^\/todo\/get/) ? 'active' : '';
+		const deleteClass = this.props.location.pathname.match(/^\/todo\/delete/) ? 'active' : '';
+		const aboutClass = this.props.location.pathname.match(/^\/about/) ? 'active' : '';
+
 		return (
 			<div>
-				<nav>
-					<ul>
-						<li><Link to="/">Home</Link></li>
-						<li><Link to="/todo/add">Add</Link></li>
-						<li><Link to="/todo/get">Get</Link></li>
-						<li><Link to="/todo/delete">Delete</Link></li>
-					</ul>
-				</nav>
-				<section>
+				<header>
+					<nav>
+						<ul>
+							<li><Link to="/" className={homeClass}>Home</Link></li>
+							<li><Link to="/todo/add" className={addClass}>Add</Link></li>
+							<li><Link to="/todo/get" className={getClass}>Get</Link></li>
+							<li><Link to="/todo/delete" className={deleteClass}>Delete</Link></li>
+							<li><Link to="/about" className={aboutClass}>About</Link></li>
+						</ul>
+					</nav>
+				</header>
+				<section className="content">
 					{this.props.children}
 				</section>
 			</div>
