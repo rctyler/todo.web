@@ -11,15 +11,13 @@ class TodoManager extends Component {
 	render() {
 		return (
 			<div>
-				<section>
+				<div className="todoAction">
 					{this.props.children}
-				</section>
-				<section>
-					<div>
-						<h3>Log of events:</h3>
-						<textarea readOnly value={this.props.log}/>
-					</div>
-				</section>
+				</div>
+				<div className="todoLog">
+					<h1>Log of events</h1>
+					<textarea readOnly value={this.props.log}/>
+				</div>
 			</div>
 		);
 	}

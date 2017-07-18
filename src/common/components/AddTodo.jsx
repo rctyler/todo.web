@@ -16,24 +16,25 @@ class AddTodo extends Component {
 
 	render() {
 		let disableSubmitButton = !this.props.message && !this.props.when && !this.props.author;
+		let submitClass = disableSubmitButton ? 'disabled' : '';
 		let nodes = (
 			<div>
 				<h1>Add New TODO Item</h1>
 				 <form onSubmit={e => this.handleSubmit(e)}>
 					<div>
-						TODO:
+						<label>TODO</label>
 						<input type="text" onChange={e => this.props.setTodoMessage(e.target.value)}/>
 					</div>
 					<div>
-						When:
+						<label>When</label>
 						<input type="text" onChange={e => this.props.setWhen(e.target.value)}/>
 					</div>
 					<div>
-						Author:
+						<label>Author</label>
 						<input type="text" onChange={e => this.props.setAuthor(e.target.value)}/>
 					</div>
 					<div>
-						<input type="submit" value="Add" disabled={disableSubmitButton} />
+						<input type="submit" value="Add" disabled={disableSubmitButton} className={submitClass} />
 						<span>{this.props.loadingMessage}</span>
 					</div>
 				</form>

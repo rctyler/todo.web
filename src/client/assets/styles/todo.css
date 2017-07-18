@@ -13,7 +13,7 @@ nav ul {
 
 nav ul > li {
 	float: left;
-	border-right: 1px solid #bbb;
+	border-right: 1px solid #e7e7e7;
 }
 
 nav ul > li > a:hover {
@@ -44,4 +44,61 @@ nav ul > li .active {
 
 .content {
 	margin-top: 60px;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.todoAction {
+	float: left;
+	width: 40%;
+}
+
+.todoLog {
+	padding-left: 40px;
+	float: right;
+	width: 50%;
+	height: 100%;
+	border-left: 1px solid #e7e7e7;
+}
+
+textarea {
+    width: 100%;
+    height: 85vh;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: none;
+    resize: none;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+	font-size: 16px;
+	border-radius: 4px;
+}
+
+input[type="submit"]:hover:not(.disabled) {
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.19);
+}
+
+input[type="submit"].disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+input[type="submit"]:focus {
+	outline: 0;
 }

@@ -26,14 +26,15 @@ class GetTodo extends Component {
 	}
 
 	render() {
+		let submitClass = !this.props.id ? 'disabled' : '';
 		let form = (
 			<form onSubmit={e => this.handleSubmit(e)}>
 				<div>
-					id:
+					<label>ID</label>
 					<input value={this.props.id} type="text" onChange={e => this.handleChange(e)}/>
 				</div>
 				<div>
-					<input type="submit" value="Get" disabled={!this.props.id}/>
+					<input type="submit" value="Get" disabled={!this.props.id} className={submitClass}/>
 					<span>{this.props.loadingMessage}</span>
 				</div>
 				{this.props.todoId ? <br/> : null}
