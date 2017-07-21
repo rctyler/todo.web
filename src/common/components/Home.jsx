@@ -10,7 +10,7 @@ export default class ShortLink extends Component {
 		let nodes = (
 			<div>
 				<h1>Welcome to the TODO Manager Web Application</h1>
-				Create, Get, and Delete TODO items
+				Add, Get, and Delete TODO reminders
 			</div>
 		);
 
