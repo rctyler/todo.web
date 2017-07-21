@@ -12,6 +12,7 @@ export default class About extends Component {
 		return (
 			<div>
 				<h1>About</h1>
+				Isomorphic front-end web application, using React with Redux, built on top of my Todo API.
 			</div>
 		);
 	}

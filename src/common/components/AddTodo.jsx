@@ -1,13 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { setMessage, setWhen, setAuthor, addTodo }
+import { setMessage, setWhen, setAuthor, addTodo, setEmptyTodo }
 	from '../actions/todoActions';
+import Todo from './Todo';
 
 class AddTodo extends Component {
 
 	static contextTypes = {
 		store: React.PropTypes.object.isRequired,
 	};
+
+	componentWillMount() {
+		this.props.setEmptyTodo();
+		this.props.setTodoMessage('');
+		this.props.setWhen('');
+		this.props.setAuthor('');
+	}
 
 	handleSubmit(event) {
 		event.preventDefault();
@@ -44,9 +52,10 @@ class AddTodo extends Component {
 					</div>
 					<div>
 						<input type="submit" value="Add" disabled={disableSubmitButton} className={submitClass} />
-						<span>{this.props.loadingMessage}</span>
+						<span className="loader">{this.props.loadingMessage}</span>
 					</div>
 				</form>
+				{ this.props.todoId ? <Todo/> : null }
 			</div>
 		);
 
@@ -60,7 +69,8 @@ function mapStateToProps({ todoReducer }, ownProps) {
 		when: todoReducer.when,
 		author: todoReducer.author,
 		loadingMessage: todoReducer.loadingMessage,
-		log: todoReducer.log
+		log: todoReducer.log,
+		todoId: todoReducer.getTodoId
 	};
 }
 
@@ -77,6 +87,9 @@ function mapDispatchToProps(dispatch, ownProps) {
 		},
 		addTodo: (message, when, author) => {
 			dispatch(addTodo(message, when, author));
+		},
+		setEmptyTodo: () => {
+			dispatch(setEmptyTodo());
 		}
 	};
 }

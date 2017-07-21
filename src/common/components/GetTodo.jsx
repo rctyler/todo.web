@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Todo from './Todo';
-import { setFindTodoId, getTodo } from '../actions/todoActions';
+import { setFindTodoId, getTodo, setEmptyTodo } from '../actions/todoActions';
 
 class GetTodo extends Component {
 
@@ -11,6 +11,8 @@ class GetTodo extends Component {
 	};
 
 	componentWillMount() {
+		this.props.setEmptyTodo();
+		this.props.setId('');
 		if (this.props.params.id) {
 			this.props.getTodo(this.props.params.id);
 		}
@@ -34,7 +36,7 @@ class GetTodo extends Component {
 				</div>
 				<div>
 					<input type="submit" value="Get" disabled={!this.props.id} className={submitClass}/>
-					<span>{this.props.loadingMessage}</span>
+					<span className="loader">{this.props.loadingMessage}</span>
 				</div>
 				{this.props.todoId ? <br/> : null}
 			</form>
@@ -71,6 +73,9 @@ function mapDispatchToProps(dispatch, ownProps) {
 		},
 		getTodo: id => {
 			dispatch(getTodo(id));
+		},
+		setEmptyTodo: () => {
+			dispatch(setEmptyTodo());
 		}
 	};
 }

@@ -56,6 +56,7 @@ export function addTodo(message, when, author) {
 			.todos('addTodo', { todo })
 			.then(todo => {
 				dispatch(setLoadingMessage());
+				dispatch(setTodo(todo));
 				dispatch(addToLog(`Added todo item ${todo.id}\n`));
 			});
 	};
@@ -94,7 +95,7 @@ export function getTodo(id) {
 			})
 			.catch(err => {
 				dispatch(setLoadingMessage());
-				dispatch(setTodo(createEmptyTodo()));
+				dispatch(setEmptyTodo());
 				dispatch(addToLog(`Could not get todo item ${id}. Reason: ${err}\n`));
 			});
 	};
@@ -130,17 +131,19 @@ export function getTodoFromLink(id) {
 			})
 			.catch(err => {
 				dispatch(setLoadingMessage());
-				dispatch(setTodo(createEmptyTodo()));
+				dispatch(setEmptyTodo());
 				dispatch(addToLog(`Could not get todo item ${id}. Reason: ${err}\n`));
 			});
 	};
 }
 
-function createEmptyTodo() {
-	return {
-		ID: '',
-		TODO: '',
-		when: '',
-		author: ''
+export function setEmptyTodo() {
+	return dispatch => {
+		dispatch(setTodo({
+			ID: '',
+			TODO: '',
+			when: '',
+			author: ''
+		}));
 	};
 }

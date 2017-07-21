@@ -10,10 +10,22 @@ class Todo extends Component {
 	render() {
 		let nodes = (
 			<div>
-				<div>ID: {this.props.id}</div>
-				<div>TODO: {this.props.message}</div>
-				<div>When: {this.props.when}</div>
-				<div>Author: {this.props.author}</div>
+				<table className="todo">
+					<tbody>
+						<tr>
+							<th>ID</th>
+							<th>TODO</th>
+							<th>When</th>
+							<th>Author</th>
+						</tr>
+						<tr>
+							<td>{this.props.id}</td>
+							<td>{this.props.message}</td>
+							<td>{this.props.when}</td>
+							<td>{this.props.author}</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		);
 

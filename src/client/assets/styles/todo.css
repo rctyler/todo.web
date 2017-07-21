@@ -112,3 +112,22 @@ input[type="submit"].disabled {
 :focus {
 	outline: 0;
 }
+
+table.todo {
+	margin-top: 30px;
+	border: 1px solid #ddd;
+	border-collapse: collapse;
+}
+
+table.todo th, td {
+    padding: 15px;
+	text-align: left;
+	border: 1px solid #ddd;
+}
+
+
+.loader {
+	margin-left: 20px;
+	font-size: 14px;
+	font-family: monospace;
+}
