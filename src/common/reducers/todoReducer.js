@@ -62,6 +62,10 @@ function setLoadingMessage(state, action) {
 function addToLog(state, action) {
 	let newState = { ...state };
 
+	if (!newState.log) {
+		newState.log = '';
+	}
+
 	newState.log += `${new Date().toISOString()} - ${action.payload.log}\n`;
 
 	return newState;
@@ -75,7 +79,7 @@ function setShouldNotGetTodoOnMount(state, action) {
 	return newState;
 }
 
-export default function (state = { log: '', findTodoId: '' }, action) {
+export default function (state = { }, action) {
 	switch (action.type) {
 		case actionTypes.SET_MESSAGE:
 			return setMessage(state, action);
