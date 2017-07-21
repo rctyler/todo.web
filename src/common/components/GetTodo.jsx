@@ -32,7 +32,7 @@ class GetTodo extends Component {
 		let form = (
 			<form onSubmit={e => this.handleSubmit(e)}>
 				<div>
-					<input value={this.props.id} type="text" placeholder="ID" onChange={e => this.handleChange(e)}/>
+					<input type="text" placeholder="ID" onChange={e => this.handleChange(e)}/>
 				</div>
 				<div>
 					<input type="submit" value="Get" disabled={!this.props.id} className={submitClass}/>
