@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { setMessage, setWhen, setAuthor, addTodo, setEmptyTodo }
+import { setAddMessage, setAddWhen, setAddAuthor, addTodo, resetTodo }
 	from '../actions/todoActions';
 import Todo from './Todo';
 
@@ -11,7 +11,7 @@ class AddTodo extends Component {
 	};
 
 	componentWillMount() {
-		this.props.setEmptyTodo();
+		this.props.resetTodo();
 		this.props.setTodoMessage('');
 		this.props.setWhen('');
 		this.props.setAuthor('');
@@ -77,19 +77,19 @@ function mapStateToProps({ todoReducer }, ownProps) {
 function mapDispatchToProps(dispatch, ownProps) {
 	return {
 		setTodoMessage: message => {
-			dispatch(setMessage(message));
+			dispatch(setAddMessage(message));
 		},
 		setWhen: when => {
-			dispatch(setWhen(when));
+			dispatch(setAddWhen(when));
 		},
 		setAuthor: author => {
-			dispatch(setAuthor(author));
+			dispatch(setAddAuthor(author));
 		},
 		addTodo: (message, when, author) => {
 			dispatch(addTodo(message, when, author));
 		},
-		setEmptyTodo: () => {
-			dispatch(setEmptyTodo());
+		resetTodo: () => {
+			dispatch(resetTodo());
 		}
 	};
 }

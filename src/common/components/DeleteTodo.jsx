@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { deleteTodo, setDeleteTodoId } from '../actions/todoActions';
+import { deleteTodo, setDeleteId } from '../actions/todoActions';
 
 class DeleteTodo extends Component {
 
@@ -53,7 +53,7 @@ function mapStateToProps({ todoReducer }, ownProps) {
 function mapDispatchToProps(dispatch, ownProps) {
 	return {
 		setId: id => {
-			dispatch(setDeleteTodoId(id));
+			dispatch(setDeleteId(id));
 		},
 		deleteTodo: id => {
 			dispatch(deleteTodo(id));

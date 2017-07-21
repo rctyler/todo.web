@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Todo from './Todo';
-import { setFindTodoId, getTodo, setEmptyTodo } from '../actions/todoActions';
+import { setGetId, getTodo, resetTodo } from '../actions/todoActions';
 
 class GetTodo extends Component {
 
@@ -11,7 +11,7 @@ class GetTodo extends Component {
 	};
 
 	componentWillMount() {
-		this.props.setEmptyTodo();
+		this.props.resetTodo();
 		this.props.setGetId('');
 		if (this.props.params.id) {
 			this.props.getTodo(this.props.params.id);
@@ -68,13 +68,13 @@ function mapStateToProps({ todoReducer }, ownProps) {
 function mapDispatchToProps(dispatch, ownProps) {
 	return {
 		setGetId: id => {
-			dispatch(setFindTodoId(id));
+			dispatch(setGetId(id));
 		},
 		getTodo: id => {
 			dispatch(getTodo(id));
 		},
-		setEmptyTodo: () => {
-			dispatch(setEmptyTodo());
+		resetTodo: () => {
+			dispatch(resetTodo());
 		}
 	};
 }

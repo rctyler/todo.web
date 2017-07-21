@@ -1,23 +1,23 @@
 import actionTypes from '../constants/actionTypes';
 import { getRepository } from '../utils/repository';
 
-export function setMessage(message) {
+export function setAddMessage(message) {
 	return {
-		type: actionTypes.SET_MESSAGE,
+		type: actionTypes.SET_ADD_MESSAGE,
 		payload: { message }
 	};
 }
 
-export function setWhen(when) {
+export function setAddWhen(when) {
 	return {
-		type: actionTypes.SET_WHEN,
+		type: actionTypes.SET_ADD_WHEN,
 		payload: { when }
 	};
 }
 
-export function setAuthor(author) {
+export function setAddAuthor(author) {
 	return {
-		type: actionTypes.SET_AUTHOR,
+		type: actionTypes.SET_ADD_AUTHOR,
 		payload: { author }
 	};
 }
@@ -29,16 +29,16 @@ export function setTodo(todo) {
 	};
 }
 
-export function setFindTodoId(id) {
+export function setGetId(id) {
 	return {
-		type: actionTypes.SET_GET_TODO_ID,
+		type: actionTypes.SET_GET_ID,
 		payload: { get: { id } }
 	};
 }
 
-export function setDeleteTodoId(id) {
+export function setDeleteId(id) {
 	return {
-		type: actionTypes.SET_DELETE_TODO_ID,
+		type: actionTypes.SET_DELETE_ID,
 		payload: { delete: { id } }
 	};
 }
@@ -76,13 +76,6 @@ export function setLoadingMessage(loadingMessage) {
 	};
 }
 
-export function setShouldNotGetTodoOnMount(flag) {
-	return {
-		type: actionTypes.SET_SHOULD_NOT_GET_TODO_ON_MOUNT,
-		payload: { shouldNotGetTodoOnMount: flag }
-	};
-}
-
 export function getTodo(id) {
 	return dispatch => {
 		dispatch(setLoadingMessage('retrieving ...'));
@@ -117,27 +110,7 @@ export function deleteTodo(id) {
 	};
 }
 
-export function getTodoFromLink(id) {
-	return dispatch => {
-		dispatch(setLoadingMessage('retrieving ...'));
-		dispatch(setShouldNotGetTodoOnMount(true));
-		getRepository()
-			.todos('getTodo', { get: { id } })
-			.then(todo => {
-				dispatch(setLoadingMessage());
-				dispatch(setTodo(todo));
-				dispatch(addToLog(`Found todo item ${todo.id}\n`));
-				dispatch(setShouldNotGetTodoOnMount(false));
-			})
-			.catch(err => {
-				dispatch(setLoadingMessage());
-				dispatch(setEmptyTodo());
-				dispatch(addToLog(`Could not get todo item ${id}. Reason: ${err}\n`));
-			});
-	};
-}
-
-export function setEmptyTodo() {
+export function resetTodo() {
 	return dispatch => {
 		dispatch(setTodo(null));
 	};
