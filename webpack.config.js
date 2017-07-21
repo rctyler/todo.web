@@ -1,7 +1,5 @@
 path = require('path');
 
-//require('./src/client/assets/styles/todo.css');
-
 module.exports = {
 	entry: ['./src/client/index.js'],
 	target: 'web',
