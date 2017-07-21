@@ -30,8 +30,7 @@ class GetTodo extends Component {
 		let form = (
 			<form onSubmit={e => this.handleSubmit(e)}>
 				<div>
-					<label>ID</label>
-					<input value={this.props.id} type="text" onChange={e => this.handleChange(e)}/>
+					<input value={this.props.id} type="text" placeholder="ID" onChange={e => this.handleChange(e)}/>
 				</div>
 				<div>
 					<input type="submit" value="Get" disabled={!this.props.id} className={submitClass}/>
@@ -43,7 +42,7 @@ class GetTodo extends Component {
 
 		let nodes = (
 			<div>
-				<h1>Get TODO Item</h1>
+				<h1>Get TODO Reminder</h1>
 				{!this.props.params.id ? form : null}
 				{
 					this.props.todoId ? <Todo/>

@@ -14,24 +14,33 @@ class AddTodo extends Component {
 		this.props.addTodo(this.props.message, this.props.when, this.props.author);
 	}
 
+	setTodoMessage(event) {
+		this.props.setTodoMessage(event.target.value);
+	}
+
+	setWhen(event) {
+		this.props.setWhen(event.target.value);
+	}
+
+	setAuthor(event) {
+		this.props.setAuthor(event.target.value);
+	}
+
 	render() {
-		let disableSubmitButton = !this.props.message && !this.props.when && !this.props.author;
+		let disableSubmitButton = !this.props.message || !this.props.when | !this.props.author;
 		let submitClass = disableSubmitButton ? 'disabled' : '';
 		let nodes = (
 			<div>
-				<h1>Add New TODO Item</h1>
+				<h1>Add New TODO Reminder</h1>
 				 <form onSubmit={e => this.handleSubmit(e)}>
 					<div>
-						<label>TODO</label>
-						<input type="text" onChange={e => this.props.setTodoMessage(e.target.value)}/>
+						<input type="text" placeholder="TODO" onChange={e => this.setTodoMessage(e)}/>
 					</div>
 					<div>
-						<label>When</label>
-						<input type="text" onChange={e => this.props.setWhen(e.target.value)}/>
+						<input type="text" placeholder="When" onChange={e => this.setWhen(e)}/>
 					</div>
 					<div>
-						<label>Author</label>
-						<input type="text" onChange={e => this.props.setAuthor(e.target.value)}/>
+						<input type="text" placeholder="Author" onChange={e => this.setAuthor(e)}/>
 					</div>
 					<div>
 						<input type="submit" value="Add" disabled={disableSubmitButton} className={submitClass} />

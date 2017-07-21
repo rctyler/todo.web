@@ -17,16 +17,19 @@ class DeleteTodo extends Component {
 		this.props.deleteTodo(this.props.id);
 	}
 
+	setId(event) {
+		this.props.setId(event.target.value);
+	}
+
 	render() {
 		let id = this.props.id || '';
 		let submitClass = !this.props.id ? 'disabled' : '';
 		let nodes = (
 			<div>
-				<h1>Delete TODO Item</h1>
+				<h1>Delete TODO Reminder</h1>
 				<form onSubmit={e => this.handleSubmit(e)}>
 					<div>
-						<label>ID</label>
-						<input value={id} type="text" onChange={e => this.props.setId(e.target.value)}/>
+						<input value={id} type="text" placeholder="ID" onChange={e => this.setId(e)}/>
 					</div>
 					<div>
 						<input type="submit" value="Delete" disabled={!this.props.id} className={submitClass}/>

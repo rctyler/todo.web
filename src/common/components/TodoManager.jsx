@@ -15,8 +15,8 @@ class TodoManager extends Component {
 					{this.props.children}
 				</div>
 				<div className="todoLog">
-					<h1>Log of events</h1>
-					<textarea readOnly value={this.props.log}/>
+					<h1>Activity Log</h1>
+					<textarea placeholder={'Waiting for actions to process\u2026'} readOnly value={this.props.log}/>
 				</div>
 			</div>
 		);

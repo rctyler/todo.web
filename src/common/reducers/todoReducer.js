@@ -62,7 +62,7 @@ function setLoadingMessage(state, action) {
 function addToLog(state, action) {
 	let newState = { ...state };
 
-	newState.log += action.payload.log;
+	newState.log += `${new Date().toISOString()} - ${action.payload.log}\n`;
 
 	return newState;
 }
