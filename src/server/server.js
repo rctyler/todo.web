@@ -2,22 +2,17 @@ import fs from 'fs';
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
-
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-
 import { Router, RouterContext, match } from 'react-router';
 import routes from '../common/routes/routing';
-
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
-
 import combinedReducers from '../common/reducers';
-
 import thunk from 'redux-thunk';
-
 import { createRepository } from '../common/utils/repository';
 import todoStrategy from './strategies/todos';
+import api from './api';
 
 createRepository({
 	todos: todoStrategy
@@ -29,8 +24,6 @@ app.use(bodyParser.json());
 
 app.use('/assets', express.static(path.join(__dirname, '../../src/client/assets')));
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
-
-import api from './api';
 
 app.use('/api', api);
 
@@ -54,7 +47,6 @@ app.use((req, res, next) => {
 			}
 
 			if (renderProps == null) {
-				// return next('err msg: route not found'); // yield control to next middleware to handle the request
 				return res.status(404).send('Not found');
 			}
 
@@ -65,13 +57,8 @@ app.use((req, res, next) => {
 					</Provider>
 				));
 
-				console.log('\ninitView:\n', initView);
-
 				let state = JSON.stringify(store.getState());
-				console.log( '\nstate: ', state );
-
 				let page = renderFullPage(initView, state);
-				console.log( '\npage:\n', page );
 
 				return res.status(200).send(page);
 			} catch (err) {
