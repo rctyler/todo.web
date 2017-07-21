@@ -12,14 +12,14 @@ class GetTodo extends Component {
 
 	componentWillMount() {
 		this.props.setEmptyTodo();
-		this.props.setId('');
+		this.props.setGetId('');
 		if (this.props.params.id) {
 			this.props.getTodo(this.props.params.id);
 		}
 	}
 
 	handleChange(event) {
-		this.props.setId(event.target.value);
+		this.props.setGetId(event.target.value);
 	}
 
 	handleSubmit(event) {
@@ -38,7 +38,6 @@ class GetTodo extends Component {
 					<input type="submit" value="Get" disabled={!this.props.id} className={submitClass}/>
 					<i className="loader">{this.props.loadingMessage}</i>
 				</div>
-				{this.props.todoId ? <br/> : null}
 			</form>
 		);
 
@@ -47,7 +46,7 @@ class GetTodo extends Component {
 				<h1>Get TODO Reminder</h1>
 				{!this.props.params.id ? form : null}
 				{
-					this.props.todoId ? <Todo/>
+					this.props.todo ? <Todo/>
 						: this.props.params.id ? <Todo/>
 						: null
 				}
@@ -60,15 +59,15 @@ class GetTodo extends Component {
 
 function mapStateToProps({ todoReducer }, ownProps) {
 	return {
-		id: todoReducer.findTodoId,
-		todoId: todoReducer.getTodoId,
+		id: todoReducer.get.id,
+		todo: todoReducer.todo,
 		loadingMessage: todoReducer.loadingMessage
 	};
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
 	return {
-		setId: id => {
+		setGetId: id => {
 			dispatch(setFindTodoId(id));
 		},
 		getTodo: id => {

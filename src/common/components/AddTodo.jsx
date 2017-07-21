@@ -55,7 +55,7 @@ class AddTodo extends Component {
 						<i className="loader">{this.props.loadingMessage}</i>
 					</div>
 				</form>
-				{ this.props.todoId ? <Todo/> : null }
+				{ this.props.todo ? <Todo/> : null }
 			</div>
 		);
 
@@ -65,12 +65,12 @@ class AddTodo extends Component {
 
 function mapStateToProps({ todoReducer }, ownProps) {
 	return {
-		message: todoReducer.message,
-		when: todoReducer.when,
-		author: todoReducer.author,
+		message: todoReducer.add.message,
+		when: todoReducer.add.when,
+		author: todoReducer.add.author,
 		loadingMessage: todoReducer.loadingMessage,
 		log: todoReducer.log,
-		todoId: todoReducer.getTodoId
+		todo: todoReducer.todo
 	};
 }
 

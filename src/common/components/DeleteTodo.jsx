@@ -45,7 +45,7 @@ class DeleteTodo extends Component {
 
 function mapStateToProps({ todoReducer }, ownProps) {
 	return {
-		id: todoReducer.deleteTodoId,
+		id: todoReducer.delete.id,
 		loadingMessage: todoReducer.loadingMessage
 	};
 }

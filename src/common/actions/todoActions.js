@@ -31,8 +31,8 @@ export function setTodo(todo) {
 
 export function setFindTodoId(id) {
 	return {
-		type: actionTypes.SET_FIND_TODO_ID,
-		payload: { find: { id } }
+		type: actionTypes.SET_GET_TODO_ID,
+		payload: { get: { id } }
 	};
 }
 
@@ -139,11 +139,6 @@ export function getTodoFromLink(id) {
 
 export function setEmptyTodo() {
 	return dispatch => {
-		dispatch(setTodo({
-			ID: '',
-			TODO: '',
-			when: '',
-			author: ''
-		}));
+		dispatch(setTodo(null));
 	};
 }

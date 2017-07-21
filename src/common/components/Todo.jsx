@@ -19,10 +19,10 @@ class Todo extends Component {
 							<th>Author</th>
 						</tr>
 						<tr>
-							<td>{this.props.id}</td>
-							<td>{this.props.message}</td>
-							<td>{this.props.when}</td>
-							<td>{this.props.author}</td>
+							<td>{this.props.todo.id}</td>
+							<td>{this.props.todo.message}</td>
+							<td>{this.props.todo.when}</td>
+							<td>{this.props.todo.author}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -35,11 +35,7 @@ class Todo extends Component {
 
 function mapStateToProps({ todoReducer }, ownProps) {
 	return {
-		id: todoReducer.getTodoId,
-		message: todoReducer.getTodoMessage,
-		when: todoReducer.getTodoWhen,
-		author: todoReducer.getTodoAuthor,
-		shouldNotGetTodoOnMount: todoReducer.shouldNotGetTodoOnMount
+		todo: todoReducer.todo || {}
 	};
 }
 
