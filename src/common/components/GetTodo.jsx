@@ -36,7 +36,7 @@ class GetTodo extends Component {
 				</div>
 				<div>
 					<input type="submit" value="Get" disabled={!this.props.id} className={submitClass}/>
-					<span className="loader">{this.props.loadingMessage}</span>
+					<i className="loader">{this.props.loadingMessage}</i>
 				</div>
 				{this.props.todoId ? <br/> : null}
 			</form>

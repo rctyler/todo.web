@@ -52,7 +52,7 @@ class AddTodo extends Component {
 					</div>
 					<div>
 						<input type="submit" value="Add" disabled={disableSubmitButton} className={submitClass} />
-						<span className="loader">{this.props.loadingMessage}</span>
+						<i className="loader">{this.props.loadingMessage}</i>
 					</div>
 				</form>
 				{ this.props.todoId ? <Todo/> : null }

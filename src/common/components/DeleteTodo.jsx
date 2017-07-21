@@ -33,7 +33,7 @@ class DeleteTodo extends Component {
 					</div>
 					<div>
 						<input type="submit" value="Delete" disabled={!this.props.id} className={submitClass}/>
-						<span className="loader">{this.props.loadingMessage}</span>
+						<i className="loader">{this.props.loadingMessage}</i>
 					</div>
 				</form>
 			</div>

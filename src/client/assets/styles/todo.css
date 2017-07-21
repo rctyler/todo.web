@@ -125,9 +125,7 @@ table.todo th, td {
 	border: 1px solid #ddd;
 }
 
-
 .loader {
 	margin-left: 20px;
 	font-size: 14px;
-	font-family: monospace;
 }
