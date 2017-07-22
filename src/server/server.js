@@ -75,6 +75,7 @@ function renderFullPage(html, initialState) {
 	<head>
 		<title>TODO Web Application</title>
 		<link rel="stylesheet" type="text/css" href="/assets/styles/todo.css">
+		<meta name="viewport" content="width=device-width, initial-scale=0.95">
 	</head>
 	<body>
 		<div id="app">${html}</div>

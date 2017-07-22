@@ -10,7 +10,7 @@ class TodoManager extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="todoManager">
 				<div className="todoAction">
 					{this.props.children}
 				</div>

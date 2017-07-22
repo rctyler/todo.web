@@ -1,3 +1,5 @@
+√
+
 body {
 	font-family: sans-serif;
 }
@@ -65,17 +67,25 @@ input[type=text] {
 	font-size: 16px;
 }
 
+.todoManager {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	flex-wrap: nowrap;
+}
+
 .todoAction {
-	float: left;
-	width: 40%;
+	padding-right: 40px;
+	order: 0;
+	flex: 0 0 40%;
 }
 
 .todoLog {
 	padding-left: 40px;
-	float: right;
-	width: 50%;
 	height: 100%;
 	border-left: 1px solid #e7e7e7;
+	order: 1;
+	flex: 0 0 50%;
 }
 
 textarea {
@@ -105,7 +115,7 @@ input[type="submit"]:hover:not(.disabled) {
 }
 
 input[type="submit"].disabled {
-	opacity: 0.6;
+	background: rgba(76,175,80,.6);
 	cursor: not-allowed;
 }
 
@@ -123,9 +133,35 @@ table.todo th, td {
 	padding: 15px;
 	text-align: left;
 	border: 1px solid #ddd;
+	word-wrap: break-word;
+	max-width: 8vw
 }
 
 .loader {
 	margin-left: 20px;
 	font-size: 14px;
+}
+
+@media screen and (max-device-width: 768px), (max-width: 768px) {
+	nav ul > li:last-child {
+		float: left;
+		border-right: none;
+	}
+
+	.todoManager {
+		flex-direction: column;
+	}
+
+	.todoAction {
+		padding-right: 0;
+	}
+
+	.todoLog {
+		padding-left: 0;
+		border-left: 0;
+	}
+
+	table.todo th, td {
+		max-width: 100%
+	}
 }

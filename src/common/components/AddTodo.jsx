@@ -42,13 +42,13 @@ class AddTodo extends Component {
 				<h1>Add New TODO Reminder</h1>
 				 <form onSubmit={e => this.handleSubmit(e)}>
 					<div>
-						<input type="text" placeholder="TODO" onChange={e => this.setTodoMessage(e)}/>
+						<input type="text" placeholder="TODO" maxLength="128" onChange={e => this.setTodoMessage(e)}/>
 					</div>
 					<div>
-						<input type="text" placeholder="When" onChange={e => this.setWhen(e)}/>
+						<input type="text" placeholder="When" maxLength="128" onChange={e => this.setWhen(e)}/>
 					</div>
 					<div>
-						<input type="text" placeholder="Author" onChange={e => this.setAuthor(e)}/>
+						<input type="text" placeholder="Author" maxLength="128" onChange={e => this.setAuthor(e)}/>
 					</div>
 					<div>
 						<input type="submit" value="Add" disabled={disableSubmitButton} className={submitClass} />

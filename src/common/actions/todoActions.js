@@ -88,7 +88,7 @@ export function getTodo(id) {
 			})
 			.catch(err => {
 				dispatch(setLoadingMessage());
-				dispatch(setEmptyTodo());
+				dispatch(resetTodo());
 				dispatch(addToLog(`Could not get todo item ${id}. Reason: ${err}\n`));
 			});
 	};
